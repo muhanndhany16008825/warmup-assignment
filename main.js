@@ -50,6 +50,12 @@ function secondsToTime(sec) {
 
 function getShiftDuration(startTime, endTime) {
     // TODO: Implement this function
+    let start = ampmToSeconds(startTime);
+    let end = ampmToSeconds(endTime);
+
+    let diff = end - start;
+
+    return secondsToTime(diff);
 }
 
 // ============================================================
@@ -60,6 +66,21 @@ function getShiftDuration(startTime, endTime) {
 // ============================================================
 function getIdleTime(startTime, endTime) {
     // TODO: Implement this function
+    let start = ampmToSeconds(startTime);
+    let end = ampmToSeconds(endTime);
+
+    let startWork = 8*3600;
+    let endWork = 22*3600;
+
+    let idle = 0;
+
+    if(start < startWork)
+        idle += startWork - start;
+
+    if(end > endWork)
+        idle += end - endWork;
+
+    return secondsToTime(idle);
 }
 
 // ============================================================
