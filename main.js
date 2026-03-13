@@ -91,6 +91,12 @@ function getIdleTime(startTime, endTime) {
 // ============================================================
 function getActiveTime(shiftDuration, idleTime) {
     // TODO: Implement this function
+    let shift = timeToSeconds(shiftDuration);
+    let idle = timeToSeconds(idleTime);
+
+    let active = shift - idle;
+
+    return secondsToTime(active);
 }
 
 // ============================================================
@@ -101,6 +107,17 @@ function getActiveTime(shiftDuration, idleTime) {
 // ============================================================
 function metQuota(date, activeTime) {
     // TODO: Implement this function
+    let active = timeToSeconds(activeTime);
+
+    let quota = timeToSeconds("8:24:00");
+
+    let d = new Date(date);
+
+    if(d >= new Date("2025-04-10") && d <= new Date("2025-04-30")){
+        quota = timeToSeconds("6:00:00");
+    }
+
+    return active >= quota;
 }
 
 // ============================================================
