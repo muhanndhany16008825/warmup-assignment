@@ -1,11 +1,4 @@
 const fs = require("fs");
-
-// ============================================================
-// Function 1: getShiftDuration(startTime, endTime)
-// startTime: (typeof string) formatted as hh:mm:ss am or hh:mm:ss pm
-// endTime: (typeof string) formatted as hh:mm:ss am or hh:mm:ss pm
-// Returns: string formatted as h:mm:ss
-// ============================================================
 // helper 1 convert time to sec 
 function timeToSeconds(time) {
     let parts = time.split(":");
@@ -28,7 +21,7 @@ function secondsToTime(sec) {
     s = String(s).padStart(2,"0");
 
     return h + ":" + m + ":" + s;
-
+}
 // convert am ,pm
     function ampmToSeconds(t){
 
@@ -47,7 +40,12 @@ function secondsToTime(sec) {
 
     return h*3600 + m*60 + s;
 }
-
+// ============================================================
+// Function 1: getShiftDuration(startTime, endTime)
+// startTime: (typeof string) formatted as hh:mm:ss am or hh:mm:ss pm
+// endTime: (typeof string) formatted as hh:mm:ss am or hh:mm:ss pm
+// Returns: string formatted as h:mm:ss
+// ============================================================
 function getShiftDuration(startTime, endTime) {
     // TODO: Implement this function
     let start = ampmToSeconds(startTime);
@@ -68,18 +66,13 @@ function getIdleTime(startTime, endTime) {
     // TODO: Implement this function
     let start = ampmToSeconds(startTime);
     let end = ampmToSeconds(endTime);
-
     let startWork = 8*3600;
     let endWork = 22*3600;
-
     let idle = 0;
-
     if(start < startWork)
         idle += startWork - start;
-
     if(end > endWork)
         idle += end - endWork;
-
     return secondsToTime(idle);
 }
 
@@ -93,12 +86,10 @@ function getActiveTime(shiftDuration, idleTime) {
     // TODO: Implement this function
     let shift = timeToSeconds(shiftDuration);
     let idle = timeToSeconds(idleTime);
-
     let active = shift - idle;
 
     return secondsToTime(active);
 }
-
 // ============================================================
 // Function 4: metQuota(date, activeTime)
 // date: (typeof string) formatted as yyyy-mm-dd
@@ -108,18 +99,13 @@ function getActiveTime(shiftDuration, idleTime) {
 function metQuota(date, activeTime) {
     // TODO: Implement this function
     let active = timeToSeconds(activeTime);
-
     let quota = timeToSeconds("8:24:00");
-
     let d = new Date(date);
-
     if(d >= new Date("2025-04-10") && d <= new Date("2025-04-30")){
         quota = timeToSeconds("6:00:00");
     }
-
     return active >= quota;
 }
-
 // ============================================================
 // Function 5: addShiftRecord(textFile, shiftObj)
 // textFile: (typeof string) path to shifts text file
